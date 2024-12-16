@@ -1,0 +1,324 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill {
+
+  -webkit-text-fill-color: black;
+  -webkit-box-shadow: 0 0 0 1000px #253341 inset;
+  box-shadow: 0 0 0 1000px #ffffff inset;
+  transition: background-color 5000s ease-in-out 0s;
+  color: white;
+  /*border: 2px solid #6b6b6b; !* Đặt độ dày và màu sắc của đường viền *!*/
+  /*background-clip: padding-box; !* Đảm bảo đường viền hiển thị đúng cách *!*/
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 7px;
+}
+
+.all-page-container {
+  height: 100%;
+  max-height: 500px;
+  overflow: auto;
+}
+
+body {
+  font-size: 16px;
+  font-family: SegoeuiPc, Segoe UI, San Francisco, Helvetica Neue, Helvetica, Lucida Grande, Roboto, Ubuntu, Tahoma, Microsoft Sans Serif, Arial, sans-serif;
+}
+
+pre {
+  font-family: SegoeuiPc, Segoe UI, San Francisco, Helvetica Neue, Helvetica, Lucida Grande, Roboto, Ubuntu, Tahoma, Microsoft Sans Serif, Arial, sans-serif;
+  font-size: 16px;
+}
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+input{
+  outline:none;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+}
+
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #B7C2CF;
+  border-radius: 0.25rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b8b7b7;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+
+    --radius: 0.5rem;
+
+    --chart-1: 12 76% 61%;
+
+    --chart-2: 173 58% 39%;
+
+    --chart-3: 197 37% 24%;
+
+    --chart-4: 43 74% 66%;
+
+    --chart-5: 27 87% 67%;
+
+  }
+
+  .dark {
+
+    --background: 0 0% 3.9%;
+
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 3.9%;
+
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 3.9%;
+
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+
+    --primary-foreground: 0 0% 9%;
+
+    --secondary: 0 0% 14.9%;
+
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 14.9%;
+
+    --muted-foreground: 0 0% 63.9%;
+
+    --accent: 0 0% 14.9%;
+
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 14.9%;
+
+    --input: 0 0% 14.9%;
+
+    --ring: 0 0% 83.1%;
+
+    --chart-1: 220 70% 50%;
+
+    --chart-2: 160 60% 45%;
+
+    --chart-3: 30 80% 55%;
+
+    --chart-4: 280 65% 60%;
+
+    --chart-5: 340 75% 55%;
+  }
+}
+
+.bg-default {
+  background-color: #F0F0F0;
+}
+
+.default-green {
+  background: #00b14f;
+}
+
+.bg-green-hover {
+  background-color: #0dcaf0;
+}
+
+.fontsize-default {
+  font-size: 14px;
+}
+
+.custom-container {
+  width: 1170px;
+}
+
+
+
+.custom-shadow {
+  box-shadow: -2px 4px 16px 0 rgba(0, 0, 0, .08)
+}
+
+
+.inter-normal {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.self-growth__content--item {
+  align-items: center;
+  background: linear-gradient(90deg, #ffffff 23.92%, #f0fff5);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  min-height: 216px;
+  border: #33c172 solid 1px;
+  overflow: hidden;
+  padding: 0 0 0 24px;
+  position: relative;
+  transition: .3s;
+
+}
+
+.self-growth__content--item:hover {
+  box-shadow: 0 10px 30px rgba(0, 177, 79, .2);
+  outline: 1px solid #33c172;
+}
+
+@layer base {
+  * {
+    @apply  text-[16px];
+  }
+
+  body {
+    @apply bg-background text-foreground ;
+  }
+
+  h3 {
+    @apply text-[#212f3f] text-[18px] font-bold tracking-tighter leading-6 m-0
+  }
+
+  pre{
+    @apply whitespace-pre-wrap break-words
+  }
+
+}
+
+@layer utilities {
+  .job_description_item {
+    @apply flex flex-col gap-[8px] text-[16px]
+  }
+
+  .job_description_item_title {
+    @apply text-[#212f3f] text-[16px] font-bold tracking-tighter leading-6 m-0
+  }
+
+  .text-color-default {
+    @apply text-[#212f3f]
+  }
+
+  .inter {
+    font-family: Inter, sans-serif;
+  }
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #25b849 !important;
+  border-color: #25b849;
+}
+.ant-checkbox-wrapper:hover .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #25b849 !important;
+  border-color: #25b849 !important;
+
+}
+.ant-checkbox-checked:hover .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #25b849 !important;
+  border-color: #25b849 !important;
+}
+.ant-checkbox-checked:after {
+  border-color: #25b849 !important;
+}
+.ant-checkbox:hover::after {
+  border-color: #25b849 !important;
+}
+.ant-checkbox:hover .ant-checkbox-inner {
+  border-color: #25b849 !important;
+}
+
+.ant-btn-variant-solid {
+  color: #fff;
+  background: #25b849;
+}
+.ant-btn-variant-solid:hover {
+  background: #25b849 !important;
+}
+.ant-input-outlined:focus{
+  border-color: #25b849 !important;
+}
+.ant-input-outlined:hover {
+  border-color: #25b849;
+  background-color: #ffffff;
+}
+.ant-select-selector {
+  border-color: #25b849;
+}
+
+.bg-gradient-to-green{
+  @apply bg-gradient-to-r from-[#212f3f] to-[#00b14f]
+}
+
+
+.ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload-list.ant-upload-list-picture-circle .ant-upload-list-item-container {
+  display: inline-block;
+  width: 180px;
+  height: 180px;
+  vertical-align: top;
+}
+
+span.job-pro-icon {
+  background: linear-gradient(259.43deg, #ffb94b -3.83%, #ffe7bf 29.35%, #ffb94b 92.22%);
+  color: #513101;
+  display: flex;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  letter-spacing: .01em;
+  line-height: 14.52px;
+  text-align: center;
+  align-items: center;
+  border-radius: 111px;
+  justify-content: center;
+
+}
