@@ -173,6 +173,7 @@ const Screen31: React.FC = () => {
                             <Switch value={led3State} disabled={isAutoMode} onChange={onLed3Change}/>
                         </div>
                     </div>
+                    <p className={`font-bold text-[18px]`}>Threshold:</p>
                     {
                         isAutoMode ? (
                                 <div className={`flex flex-col gap-6`}>
