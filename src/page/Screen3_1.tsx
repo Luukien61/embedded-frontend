@@ -144,7 +144,7 @@ const Screen31: React.FC = () => {
 
     return (
         <div className="flex justify-center items-center h-screen bg-gray-100">
-            <div className="w-1/2 bg-white flex p-8 rounded-lg shadow-lg">
+            <div className="lg:w-1/2 sm:w-[90%] bg-white flex p-8 rounded-lg shadow-lg">
                 <div className={`w-1/2`}>
                     <h1 className="text-2xl font-bold mb-6 text-gray-700">ESP32 Web Server</h1>
                     <div className="flex flex-col gap-4 mb-6">
@@ -173,7 +173,7 @@ const Screen31: React.FC = () => {
                             <Switch value={led3State} disabled={isAutoMode} onChange={onLed3Change}/>
                         </div>
                     </div>
-                    <p className={`font-bold text-[18px]`}>Threshold:</p>
+                    <p className={`font-bold text-[18px] ${!isAutoMode && 'hidden'}`}>Threshold:</p>
                     {
                         isAutoMode ? (
                                 <div className={`flex flex-col gap-6`}>

@@ -29,7 +29,6 @@ const UserProfile: React.FC = () => {
             const response = await fetch(`${backendUrl}/api/user/${userId}`);
             const data: UserType = await response.json();
             setUser(data);
-            setMessage(data.message,data.id)
         } catch (err) {
             console.log(err);
         }
@@ -55,7 +54,6 @@ const UserProfile: React.FC = () => {
 
     const handleUpdateMessage = async () => {
         try {
-            await setMessage(editedMessage,user.id)
             const response = await fetch(`${backendUrl}/api/user/${user.id}`, {
                 method: 'PUT',
                 headers: {
