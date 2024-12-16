@@ -11,7 +11,7 @@ const AppRouter = () => {
             <Route path="/login" element={<LoginPage />}  />
             <Route path={"/admin"} element={<Admin/>}/>
             <Route path={"/user/:id"} element={<UserProfile/>}/>
-            <Route path={"/first"} element={<Screen31/>}/>
+            <Route index element={<Screen31/>}/>
         </Routes>
     );
 };

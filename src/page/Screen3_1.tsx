@@ -1,12 +1,17 @@
 // src/WebServer.tsx
 import React, {useState, useEffect} from 'react';
 import {Slider, SliderSingleProps, Switch} from "antd";
+import {backendUrl} from "./Admin.tsx";
 
 type Data = {
     temperature: number;
     humidity: number;
     button1: boolean;
     button2: boolean;
+    button3: boolean;
+    isAutoMode: boolean;
+    temperatureThreshold: number;
+    humidityThreshold: number;
 };
 
 const Screen31: React.FC = () => {
@@ -19,24 +24,21 @@ const Screen31: React.FC = () => {
     const [humidityThreshold, setHumidityThreshold] = useState<number>();
     const [temperatureThreshold, setTemperatureThreshold] = useState<number>();
 
-    const [data, setData] = useState<Data>({
-        temperature: 0,
-        humidity: 0,
-        button1: false,
-        button2: false
-    });
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('/data');
-                const data = await response.json();
-                setData({
-                    temperature: data.temperature,
-                    humidity: data.humidity,
-                    button1: data.button1,
-                    button2: data.button2,
-                });
+                const response = await fetch(`${backendUrl}/app/data`);
+                const data: Data = await response.json();
+                setLed1State(data.button1)
+                setLed2State(data.button2)
+                setLed3State(data.button3)
+                setIsAutoMode(data.isAutoMode)
+                setTemperature(data.temperature)
+                setHumidity(data.humidity)
+                setTemperatureThreshold(data.temperatureThreshold)
+                setHumidityThreshold(data.humidityThreshold)
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -46,19 +48,77 @@ const Screen31: React.FC = () => {
         return () => clearInterval(interval); // Clean up on unmount
     }, []);
 
-    const onChange = (checked: boolean) => {
-        setIsAutoMode(checked);
+    const onChange = async (checked: boolean) => {
+        try {
+            const response = await fetch(`${backendUrl}/app/auto`)
+            const data: boolean = await response.json();
+            setIsAutoMode(data)
+            setIsAutoMode(data);
+        } catch (error) {
+            console.log(error)
+        }
     };
 
-    const onLed3Change = (checked: boolean) => {
-        setLed3State(checked);
+    const onLed3Change = async (checked: boolean) => {
+        try {
+            const response = await fetch(`${backendUrl}/app/led3`);
+            const data: boolean = await response.json();
+            setLed3State(data);
+        } catch (e) {
+            console.error(e);
+        }
     }
 
-    const onLed1Change = (checked: boolean) => {
-        setLed1State(checked);
+    const onLed1Change = async (checked: boolean) => {
+        try {
+            const response = await fetch(`${backendUrl}/app/toggle/1`);
+            const data: boolean = await response.json();
+            setLed1State(data);
+        } catch (e) {
+            console.error(e);
+        }
     }
-    const onLed2Change = (checked: boolean) => {
-        setLed2State(checked);
+    const onLed2Change = async (checked: boolean) => {
+        try {
+            const response = await fetch(`${backendUrl}/app/toggle/2`);
+            const data: boolean = await response.json();
+            setLed2State(data);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    const onHumidityThresholdChange = async (value: number) => {
+        const threshold ={
+            "temperature": temperatureThreshold,
+            "humidity": value
+        }
+        updateThreshold(threshold);
+    }
+
+    const onTemperatureThresholdChange = async (value: number) => {
+        const threshold ={
+            "temperature": value,
+            "humidity": humidityThreshold
+        }
+        updateThreshold(threshold);
+    }
+
+    const updateThreshold = async (threshold) => {
+        try{
+            const response = await fetch(`${backendUrl}/app/threshold`, {
+                method: 'POST',
+                body: JSON.stringify(threshold),
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            if(!response.ok) {
+                console.error('Failed to update threshold:', response.statusText);
+            }
+        }catch (e){
+            console.log(e)
+        }
     }
 
     const temperatureMarks: SliderSingleProps['marks'] = {
@@ -98,37 +158,50 @@ const Screen31: React.FC = () => {
                         </div>
                     </div>
                     <p className="text-lg text-gray-600">
-                        Temperature: <span className="font-semibold">{data.temperature} °C</span>
+                        Temperature: <span className="font-semibold">{temperature ?? temperature} °C</span>
                     </p>
                     <p className="text-lg text-gray-600">
-                        Humidity: <span className="font-semibold">{data.humidity} %</span>
+                        Humidity: <span className="font-semibold">{humidity && humidity} %</span>
                     </p>
                 </div>
                 <div className={`w-1/2 flex flex-col gap-6`}>
                     <div className={`flex gap-4`}>
                         <p>Auto mode: </p>
                         <Switch value={isAutoMode} onChange={onChange}/>
+                        <div className={`flex gap-4 flex-1 justify-end `}>
+                            <p>Devices: </p>
+                            <Switch value={led3State} disabled={isAutoMode} onChange={onLed3Change}/>
+                        </div>
                     </div>
                     {
                         isAutoMode ? (
                                 <div className={`flex flex-col gap-6`}>
                                     <div className={`flex gap-4 items-center w-full`}>
                                         <p className={`w-[100px]`}>Temperature: </p>
-                                        <Slider className={`flex-1`} max={60} marks={temperatureMarks} defaultValue={37}/>
+                                        <Slider className={`flex-1`}
+                                                value={temperatureThreshold}
+                                                onChange={(value)=>setTemperatureThreshold(value)}
+                                                onChangeComplete={onTemperatureThresholdChange}
+                                                max={60}
+                                                marks={temperatureMarks}
+                                                defaultValue={temperatureThreshold ?? temperatureThreshold}/>
                                     </div>
                                     <div className={`flex gap-4 items-center w-full`}>
                                         <p className={`w-[100px]`}>Humidity: </p>
-                                        <Slider className={`flex-1`} max={80} marks={humidityMarks} defaultValue={30}/>
+                                        <Slider className={`flex-1`}
+                                                value={humidityThreshold}
+                                                onChange={(value)=>setHumidityThreshold(value)}
+                                                onChangeComplete={onHumidityThresholdChange}
+                                                max={80}
+                                                marks={humidityMarks}
+                                                defaultValue={humidityThreshold ?? humidityThreshold}/>
                                     </div>
                                 </div>
 
                             ) :
                             (
                                 <div>
-                                    <div className={`flex gap-9`}>
-                                        <p>Devices: </p>
-                                        <Switch value={led3State} onChange={onLed3Change}/>
-                                    </div>
+
                                 </div>
                             )
                     }

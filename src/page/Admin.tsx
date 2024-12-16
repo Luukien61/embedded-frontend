@@ -137,7 +137,7 @@ const UserManagement: React.FC = () => {
                 {users.map((user) => (
                     <div
                         key={user.id}
-                        className="bg-white w-1/3 shadow-md rounded-lg p-4 flex items-center justify-between"
+                        className="bg-white w-[500px] shadow-md rounded-lg p-4 flex items-center justify-between"
                     >
                         <div className="flex items-center">
                             <User className="w-12 h-12 rounded-full mr-4 bg-blue-200 p-2" />
